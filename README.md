@@ -5,5 +5,5 @@
 
 ## 使用方式
 
-直接使用瀏覽器開啟即可
+Repo載下來之後直接使用瀏覽器開啟即可
 在tw或en的資料夾內的CreateSVGPoint.htm
