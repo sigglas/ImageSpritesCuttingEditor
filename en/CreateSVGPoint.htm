@@ -1,0 +1,165 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta name="description" content="Image Sprites Cutting Editor / 圖片定位分割器" />
+    <meta name="keywords" content="Image Sprites Cutting Editor,圖片定位分割器,CSS,HTML5,排版,image,picture,CSS3,CSS Sprites" />
+    <title>Image Sprites Cutting Editor / 圖片定位分割器</title>
+    <title></title>
+    <link href="../css/jquery.Jcrop.min.css" rel="stylesheet" type="text/css" />
+    <script src="https://code.jquery.com/jquery-latest.min.js" type="text/javascript"></script>
+    <script src="../js/jquery.Jcrop.min.js" type="text/javascript"></script>
+    <script src="en-us.js" type="text/javascript"></script>
+    <script src="../js/lang.js" type="text/javascript"></script>
+    <script src="../js/ImgUpDrop.js" type="text/javascript"></script>
+    <style >   
+        .orirects
+        {
+            fill: transparent;
+            stroke: blue;
+            stroke-width: 1;
+            fill-opacity: 0.1;
+            stroke-opacity: 0.9;
+        }
+        #drop
+        {
+            min-height: 150px;
+            width: 250px;
+            border: 1px solid blue;
+            margin: 10px;
+            padding: 10px;
+        }
+        .picarea
+        {
+        	border-color:Blue;
+        	border-width:2px;
+        	border-style:solid;
+        	padding: 2px 2px 2px 2px;
+        	
+        	}
+        .eventblock
+        {
+        	border: 1px dashed gray;
+        	
+        }
+    </style>
+    <style id="css_out">
+        .rects
+        {
+            fill: transparent;
+            stroke: pink;
+            stroke-width: 1;
+            fill-opacity: 0.1;
+            stroke-opacity: 0.9;
+        }
+        .rects:hover
+        {
+            stroke: #00cccc;
+        }  
+    </style>
+</head>
+<body>
+ <!--   <div style="float: left">
+        <img id="target" src="BONE_ECHO.bmp" alt="" width="300px" height="400px" />
+        <input type="button" value="Add" style="vertical-align: top" />
+    </div>-->
+    <header>
+        <div style="height:50px; display:block">
+            <h1>Image Sprites Cutting Editor / 圖片定位分割器</h1>
+        </div>
+    </header>
+    <div style="min-height: 450px;  min-width:1024px; display: block">
+        <div>
+                {clientsize}:&nbsp;
+                    {width}:<input id="c_width" type="text" value="400" style="width:40px"  />px&nbsp;
+                    {height}:<input id="c_height" type="text" value="300" style="width:40px" />px&nbsp;
+                    {fullsize}:<input id="c_fullsize" type="checkbox" />
+        </div>
+        <div id="status">
+            {status_default}            
+        </div>
+        <div id="drop_area" style="float: left; min-width: 100%;  display: inline-block" >
+            <div id="drop" style="width: 400px; height: 400px; display: inline-block">
+                {drop_def}
+            </div>
+        </div>
+        <div id="imgarea" style="display: none">
+            <div style="float: left; min-width: 100%; min-height: 450px; display: inline-block">
+            
+                <div style="float: left; min-width:150px;">
+                    <div id="list">
+                    </div>
+                        
+                    {blockname}
+                    <br />
+                    <input id="t_posName" type="text" style="width: 100px" />
+                    <br />
+                    <input id="addNewPoint" type="button" value="{addblock}" />
+                    <br />
+                    <input id="reDragIn" type="button" value="{resetimage}" />
+                    <br />
+                    {embedevent}:<input id="c_useEvent" type="checkbox" />
+                    <div id="eventArea" style="display: none; max-height:310px; overflow:hidden; overflow-y:auto">
+                        <div id="eventAreaList">
+                            <div class="eventblock">
+                                {Event}<label>1</label>.
+                                <br />
+                                {event}:<input class="t_eventname" type="text" value="onclick" style="width: 70px" />
+                                <br />
+                                {func}:<input class="t_funcname" type="text" value="helloWorld" style="width: 70px" />
+                            </div>
+                        </div>
+                        <input id="addevent" value="{addevent}" type="button" />
+                        <input id="clearevents" value="{clear}" type="button" />
+                    </div>
+                </div>
+                <div id="target_parent" class="picarea" style="float: left;">
+                    <svg id="target" width="300px" height="400px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                        <image xlink:href="" x="0" y="0" height="100%" width="100%">
+                        </image>
+                    </svg>
+                </div>
+            </div>
+            <div id="posted" style="float: left; min-height: 400px; display: none">
+                <svg id="posted_svg" width="300px" height="400px" version="1.1" xmlns="http://www.w3.org/2000/svg">
+                    <image xlink:href="" x="0" y="0" height="100%" width="100%">
+                    </image>
+                </svg>
+            </div>
+        </div>
+    </div>
+    <br />
+    <br />
+    
+    <div style="width:100%; height:100%; display:block">
+    <div>
+        {selectpoints}：        
+        X1<input type="text" size="4" id="x1" name="x1" />
+        Y1<input type="text" size="4" id="y1" name="y1" />
+        X2<input type="text" size="4" id="x2" name="x2" />
+        Y2<input type="text" size="4" id="y2" name="y2" />
+        W<input type="text" size="4" id="w" name="w" />
+        H<input type="text" size="4" id="h" name="h" />
+    </div>
+    <div>
+        <select id="expSel">
+            <option value="Full Element" selected="selected">{fullelement}</option>
+            <option value="Points Only">{pointsonly}</option>
+        </select>
+        <input id="expSVG" type="button" value="Export" />
+        <br />
+        <textarea id="export" style="width: 800px; height: 400px"></textarea>
+    </div>
+    </div>
+    <div style="display:none">
+        <textarea id="t_jsonout"></textarea>
+    </div>
+    <script type="text/javascript" src="../js/CreateSVGPoint.js"></script>
+    <div id="d_out"></div>
+    <script id="s_out">
+    </script>
+<footer>
+ <a href="http://sigglas.blogspot.tw/" target="_blank" ><small>Design by Sigglas(希格)</small>
+ </a>
+</footer>
+</body>
+</html>
